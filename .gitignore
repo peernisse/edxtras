@@ -2,3 +2,8 @@
 .Rhistory
 .RData
 .Ruserdata
+.Rproj
+.Rdata
+*.csv
+*.pdf
+dev/
