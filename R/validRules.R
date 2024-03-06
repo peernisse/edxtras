@@ -315,41 +315,20 @@ editRules.validRules <- function(x, ruleset = 'default', newrules){
 #' Print method for S3 class validRules
 #' @description Prints the rules pretty by ruleset
 #' @param x List of grouped validation rule functions
+#' @param ... Arguments passed to tidyr::as_tibble
 #' @importFrom dplyr bind_rows
 #' @importFrom tidyr as_tibble
 #' @export
 #' @noRd
 print.validRules <- function(x, ...){
-    ruleset <- names(x)
-    rulesdf <- data.frame()
-    
-    for(i in seq_along(ruleset)){
-        names <- names(x[[i]])
-        calls <- purrr::map(seq_along(names), ~ 
-            as.character(attributes(x[[i]][[.x]])[[1]])
-        ) %>% unlist() 
-        
-        #TODO 12/13/2023 this is fucked
-        
-        if(length(names) != length(calls)){
-            calls <- purrr::map(seq_along(names), ~ 
-                as.character(enquote(x[[i]][[.x]]))[2]                        
-            ) %>% unlist() 
-        } 
-        # this error only occurs in devtools::check(). It all works interactive and in devtools::run_examples()
-        # The function attributes get stripped in `default` so this is needed to print the functions
-        
-        rulesdf <- dplyr::bind_rows(rulesdf,
-            data.frame('Ruleset' = ruleset[[i]],'Name' = names, 'Rule' = calls)
-        )
-    }
-    
-    print(tidyr::as_tibble(rulesdf))
+    stopifnot(class(x)[1] == 'validRules')
+    print(tidyr::as_tibble(x), ...)
 }
 
 #' as.data.frame() method for S3 class validRules
 #' @description Puts the rules in a tibble dataframe
 #' @param x List of grouped validation rule functions with class `validRules`
+#' @importFrom purrr map
 #' @returns Tibble of rules with three columns Ruleset, Name, Rule 
 #' @export
 #' @noRd
@@ -363,7 +342,7 @@ as.data.frame.validRules <- function(x, row.names, optional, ...){
             as.character(attributes(x[[i]][[.x]])[[1]])
         ) %>% unlist()
         
-        #TODO 12/13/2023 this is fucked
+        #TODO 12/13/2023 this is in need of improvement
         
         if(length(names) != length(calls)){
             calls <- purrr::map(seq_along(names), ~ 
@@ -378,61 +357,7 @@ as.data.frame.validRules <- function(x, row.names, optional, ...){
         )
     }
     
-    return(tidyr::as_tibble(rulesdf))
+    return(rulesdf)
 }
-
-### TESTING ----
-
-# default <- validRules()
-# print(default)
-
-# 
-# a <- unlist(x)
-# a <- unname(a)
-# a <- unclass(a[[1]])
-# 
-# 
-# as_tibble(unlist(x[[1]]))
-# s <- enquote(x[[1]][[1]])
-
-# 
-# bobRules <- validRules(
-#     list(
-#         'bib' = function(x) x - 1,
-#         'bob' = function(x) x + 1,
-#         'bibs' = function(x) x - 10,
-#         'bobs' = function(x) x + 10
-#     ),
-#     ruleset = 'bob'
-# )
-# 
-# bibRules <- validRules(
-#     list(
-#         'bibi' = function(x) x < 10,
-#         'bobi' = function(x) x > 10
-#     ),
-#     ruleset = 'bib'
-# )
-# 
-# bibRules <- c('bobs' = function(x) x + 100)
-# 
-# xxx <- addRules(bobRules, bibRules, ruleset = 'bib')
-# 
-# sloop::s3_dispatch(addRules(bobRules, 'newtest'))
-# 
-# test <- addRules(bobRules, default)
-# 
-# test <- validRules() %>%
-#     addRules(bibRules,'bib') %>%
-#     addRules(bobRules,'notbob') %>% 
-#     addRules(., list('bobs2' = function(x) x + 42), 'bib')
-# 
-# names(test)
-# 
-# test
-# z <- as.data.frame(test)
-# z
-
-
 
 

@@ -5,3 +5,5 @@ dev/
 ^docs$
 ^pkgdown$
 ^\.github$
+^.*\.Rproj$
+^\.Rproj\.user$
