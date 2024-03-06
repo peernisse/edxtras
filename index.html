@@ -32,7 +32,7 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
     
     <a class="navbar-brand me-2" href="index.html">edxtras</a>
 
@@ -45,6 +45,9 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item">
+  <a class="nav-link" href="articles/edxtras.html">Get started</a>
+</li>
 <li class="nav-item">
   <a class="nav-link" href="reference/index.html">Reference</a>
 </li>
@@ -63,55 +66,66 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="edxtras">edxtras<a class="anchor" aria-label="anchor" href="#edxtras"></a>
 </h1></div>
-<!-- badges: start 
-[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![Pkg-Version](https://badgen.net/static/Pkg-Version/1.1.0/orange?icon=[gitlab])]()
-[![R-Version](https://badgen.net/static/R-Version/>=3.5/blue?icon=[gitlab])]()
-[![R-CMD-Check](https://badgen.net/static/R-CMD-Check/Passing/green?icon=[gitlab])]()
-[![coverage](https://badgen.net/static/Test-Coverage/60-percent/yellow)]()
+<!-- badges: start -->
 
 <!-- badges: end -->
-<p>This package supports R Shiny applications and associated data wrangling for electronic data exchange (EDX) programs. The functions herein help validate data delivered to Utah Department of Health and Human Services (DHHS) by laboratories and health clinics (e.g., hospitals). Said validation and QC is mandated through Utah Admin. Code R386-702, the Communicable Disease Rule. R386-702.</p>
-<div class="section level2">
-<h2 id="adminstrative-context">Adminstrative Context<a class="anchor" aria-label="anchor" href="#adminstrative-context"></a>
-</h2>
-<p>Laboratory reporting of test results to the Utah Department of Health and Human Services (UDHHS) is mandated through Utah Admin. Code R386-702, the Communicable Disease Rule. R386-702 specifies the manner, timing, and frequency of laboratory reporting, in addition to what data elements must be reported with the laboratory result. This application displays data using laboratory results reported to public health and should be used by UDHHS personnel and reporters to assess reporter compliance with public health reporting regulations.</p>
-</div>
+<p>This package supports data validation and quality control monitoring for electronic data exchange (EDX) programs. The functions herein were designed to help validate data sets coming from laboratories and health clinics (e.g., hospitals), though can be applied anywhere routine data validation is implemented in R.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install edxtras like so:</p>
+<p>This package is not currently on CRAN. You can install edxtras like so:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://remotes.r-lib.org" class="external-link">remotes</a></span><span class="op">)</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_git</span><span class="op">(</span><span class="st">"https://git.dts.utah.gov/dcp-r-shiny/edxtras"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"peernisse/edxtras"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="background">Background<a class="anchor" aria-label="anchor" href="#background"></a>
+</h2>
+<p>The <code>edxtras</code> package has been developed at the Utah Department of Health and Human Services (DHHS), Division of Population Health Informatics Program (DPHIP). Functions in the package are developed to aid in ongoing validation of laboratory and health clinic data reported to assess reporter compliance with public health reporting regulations, namely, Utah Admin. Code R386-702, the Communicable Disease Rule.</p>
+</div>
+<div class="section level2">
+<h2 id="contribution">Contribution<a class="anchor" aria-label="anchor" href="#contribution"></a>
+</h2>
+<ul>
+<li>You can report a bug or issues at <a href="https://github.com/peernisse/edxtras/issues/new" class="external-link">this link</a>
+</li>
+<li>You can submit a pull request at <a href="https://github.com/peernisse/edxtras/compare" class="external-link">this link</a>
+</li>
+</ul>
 </div>
 <div class="section level2">
 <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
 </h2>
-<p>This is a basic example to run completeness and validity validation on a dataframe using the default EMSA QA validRules:</p>
-<details><summary>
-Example Code
-</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://peernisse.github.io/edxtras/">edxtras</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="reference/validRules.html">validRules</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="co"># shows the default rules</span></span>
-<span></span>
-<span><span class="co"># Simple example ----</span></span>
-<span></span>
-<span><span class="co">## validRules() is used by makeValidData</span></span>
-<span></span>
-<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>    <span class="st">'myindex'</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Bob'</span>,<span class="st">'Bob'</span>,<span class="st">'Larry'</span><span class="op">)</span>,</span>
-<span>    <span class="st">'lastname'</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'AAA'</span>,<span class="st">'BBB'</span>,<span class="st">'CCC'</span><span class="op">)</span>,</span>
-<span>    <span class="st">'gender'</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Male'</span>,<span class="st">'Female'</span>,<span class="st">'M A L E'</span><span class="op">)</span>, </span>
-<span>    <span class="st">'norule'</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'A'</span>,<span class="st">'B'</span>,<span class="st">'C'</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span><span class="fu"><a href="reference/makeValidData.html">makeValidData</a></span><span class="op">(</span><span class="va">df</span>, indexCol <span class="op">=</span> <span class="st">'myindex'</span>, filtRep <span class="op">=</span> <span class="st">'Bob'</span><span class="op">)</span></span>
-<span><span class="fu"><a href="reference/makeValidData.html">makeValidData</a></span><span class="op">(</span><span class="va">df</span>, indexCol <span class="op">=</span> <span class="st">'myindex'</span>, filtRep <span class="op">=</span> <span class="st">'Larry'</span><span class="op">)</span></span></code></pre></div>
-</details><p><br></p>
+<!--
+This is a basic example to run completeness and validity validation on a dataframe using the default QA validRules:
+
+<details>
+    <summary>Example Code</summary>
+
+``` r
+library(edxtras)
+print(validRules()) # shows the default rules
+
+# Simple example ----
+
+## validRules() is used by makeValidData
+
+df <- data.frame(
+    'myindex' = c('Bob','Bob','Larry'),
+    'lastname' = c('AAA','BBB','CCC'),
+    'gender' = c('Male','Female','M A L E'), 
+    'norule' = c('A','B','C')
+)
+makeValidData(df, indexCol = 'myindex', filtRep = 'Bob')
+makeValidData(df, indexCol = 'myindex', filtRep = 'Larry')
+```
+</details>
+<br/>
+-->
 <p>This is an example of using several <code>edxtras</code> validation functions with a 10M row DF:</p>
 <details><summary>
 Example Code
-</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Make dataframe of 10 million rows and use custom rules ----</span></span>
 <span></span>
 <span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">10000000</span></span>
@@ -210,8 +224,8 @@ Example Code
 <div class="section level2">
 <h2 id="contact-info">Contact Info<a class="anchor" aria-label="anchor" href="#contact-info"></a>
 </h2>
-<p>This package is maintained by DPHIP Dashboard Staff</p>
-<p><a href="mailto:peernisse@utah.gov">Peter EerNisse</a></p>
+<p>This package is maintained by Utah DHHS DPHIP Staff</p>
+<p><a href="mailto:edx@utah.gov">EDX Team</a></p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="license">
@@ -237,7 +251,16 @@ Example Code
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
+<li><a href=""><img src="https://badgen.net/static/Pkg-Version/1.1.0/blue?icon=%5Bgitlab%5D" alt="Pkg-Version"></a></li>
+<li><a href=""><img src="https://badgen.net/static/R-Version/%3E=3.5/blue?icon=%5Bgitlab%5D" alt="R-Version"></a></li>
+<li><a href=""><img src="https://badgen.net/static/R-CMD-Check/Passing/green?icon=%5Bgitlab%5D" alt="R-CMD-Check"></a></li>
+<li><a href=""><img src="https://badgen.net/static/Test-Coverage/60-percent/yellow" alt="coverage"></a></li>
+</ul>
+</div>
 
   </aside>
 </div>
