@@ -1,45 +1,39 @@
 
 # edxtras
 
-<!-- badges: start 
-[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![Pkg-Version](https://badgen.net/static/Pkg-Version/1.1.0/orange?icon=[gitlab])]()
+<!-- badges: start -->
+
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![Pkg-Version](https://badgen.net/static/Pkg-Version/1.1.0/blue?icon=[gitlab])]()
 [![R-Version](https://badgen.net/static/R-Version/>=3.5/blue?icon=[gitlab])]()
 [![R-CMD-Check](https://badgen.net/static/R-CMD-Check/Passing/green?icon=[gitlab])]()
 [![coverage](https://badgen.net/static/Test-Coverage/60-percent/yellow)]()
 
 <!-- badges: end -->
 
-This package supports R Shiny applications and associated data wrangling
-for electronic data exchange (EDX) programs. The functions herein help validate
-data delivered to Utah Department of Health and Human Services (DHHS) by 
-laboratories and health clinics (e.g., hospitals). Said validation and QC is 
-mandated through Utah Admin. Code R386-702, the Communicable Disease Rule. R386-702.
-
-## Adminstrative Context
-
-Laboratory reporting of test results to the Utah Department of Health and 
-Human Services (UDHHS) is mandated through Utah Admin. Code R386-702, 
-the Communicable Disease Rule. R386-702 specifies the manner, timing, and 
-frequency of laboratory reporting, in addition to what data elements must be 
-reported with the laboratory result. This application displays data using 
-laboratory results reported to public health and should be used by UDHHS 
-personnel and reporters to assess reporter compliance with public health reporting
-regulations.
+This package supports data validation and quality control monitoring
+for electronic data exchange (EDX) programs. The functions herein were designed to help validate
+data sets coming from laboratories and health clinics (e.g., hospitals), though can be applied anywhere routine data validation is implemented in R.
 
 ## Installation
-
+This package is not currently on CRAN.
 You can install edxtras like so:
 
 ``` r
 library(remotes)
-remotes::install_git("https://git.dts.utah.gov/dcp-r-shiny/edxtras")
+remotes::install_github("peernisse/edxtras")
 
 ```
+## Background
+The `edxtras` package has been developed at the Utah Department of Health and Human Services (DHHS), Division of Population Health Informatics Program (DPHIP). Functions in the package are developed to aid in ongoing validation of laboratory and health clinic data reported to assess reporter compliance with public health reporting regulations, namely, Utah Admin. Code R386-702, the Communicable Disease Rule.
+
+## Contribution
+- You can report a bug or issues at [this link](https://github.com/peernisse/edxtras/issues/new)
+- You can submit a pull request at [this link](https://github.com/peernisse/edxtras/compare)
 
 ## Examples
-
-This is a basic example to run completeness and validity validation on a dataframe using the default EMSA QA validRules:
+<!--
+This is a basic example to run completeness and validity validation on a dataframe using the default QA validRules:
 
 <details>
     <summary>Example Code</summary>
@@ -63,7 +57,7 @@ makeValidData(df, indexCol = 'myindex', filtRep = 'Larry')
 ```
 </details>
 <br/>
-
+-->
 This is an example of using several `edxtras` validation functions with a 10M row DF:
 
 <details>
@@ -169,7 +163,7 @@ output
 
 ## Contact Info
 
-This package is maintained by DPHIP Dashboard Staff
+This package is maintained by Utah DHHS DPHIP Staff
 
-[Peter EerNisse](mailto:peernisse@utah.gov)
+[EDX Team](mailto:edx@utah.gov)
 

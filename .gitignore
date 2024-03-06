@@ -8,3 +8,4 @@
 *.pdf
 dev/
 docs
+inst/doc

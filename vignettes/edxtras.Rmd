@@ -1,0 +1,193 @@
+---
+title: "edxtras"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{edxtras}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Get Started
+
+
+
+```{r setup}
+library(edxtras)
+```
+
+## Example use case
+Data are provided to you regularly from multiple sources in tabular format. The data are required to contain certain columns and those columns should be complete and comply with certain rules for quality control. You need to track and report the quality of the data delivered from each source.
+
+### Create demonstration data
+
+Let's create two datasets to demonstrate using `edxtras` to accomplish this.
+
+#### Dataset 1
+```{r df1}
+df1 <- edxtras::zipcodeDB[, c('zipcode', 'lat', 'lng', 'post_office_city', 'state')]
+str(df1)
+
+```
+
+#### Dataset 2
+```{r df2}
+set.seed(42)
+sampleDates <- seq.Date(as.Date('2020-01-01'), as.Date(Sys.Date() + 100), 'day')
+
+df2 <- data.frame(
+    'reporter' = sample(c('Rep A', 'Rep B', 'Rep C'), 3000, replace = TRUE),
+    'description' = sample(
+        c('short description', 'a slightly longer description', NA), 3000, replace = TRUE
+    ),
+    'date' = sample(as.character(sampleDates), 3000, replace = TRUE),
+    'values' = sample(-100:1000, 3000, replace = TRUE)
+)
+str(df2)
+```
+
+### Hypothetical validation requirements
+
+**Dataset 1**
+
+- zipcodes not empty and exactly 5 characters
+- lattitudes not empty and are positive
+- longitudes not empty and are negative
+- post office city not empty and of the form "City, ST"
+- State abbreviation not empty and exactly 2 characters
+
+**Dataset 2**
+
+- Description is not empty and is alpha-numeric
+- Date is not in the future
+- Values are positive
+
+### Create list of validation functions for each dataset
+The key element for using the `edxtras` package is the `validRules` S3 class. It creates a named list of class `validRules` where you will create custom validation functions for your data and use case. Validation rules should:
+
+* Return TRUE/FALSE
+* Be named in the list as to correspond to vector or column names the rule is designed to validate
+
+### Create rules for validation requirements
+
+Let's use `validRules()` to create the validation functions for the datasets
+We want to define the logic that will be applied to each element in a dataframe column and return TRUE or FALSE whether the value passes the rule.
+
+**Dataset 1**
+We construct a named list of validation functions. The names of the functions correspond to column names in `df1`.
+
+```{r rules1}
+# Create named list of functions that check the requirements 
+
+df1Rules <- list(
+    'zipcode' = function(x) !is.na(x) & nchar(x) == 5,
+    'lat' = function(x) !is.na(x) & x > 0,
+    'lng' = function(x) !is.na(x) & x < 0,
+    'post_office_city' = function(x) !is.na(x) & grepl('^[A-Za-z]+,[ ]?[A-Za-z]+{2,}$', x),
+    'state' = function(x) !is.na(x) & nchar(x) == 2
+)
+
+# Add the `df1Rules` list as a ruleset named "df1Rules" to a new validRules() object
+
+projectValidationRules <- validRules(df1Rules, ruleset = 'df1Rules')
+projectValidationRules
+
+
+```
+
+**Dataset 2**
+We construct a named list of validation functions. The names of the functions correspond to column names in `df2`. We use `addRules()` to add another group of rules (ruleset) in the `projectValidationRules` object.
+
+```{r rules2}
+
+# Create named list of functions that check the requirements 
+
+df2Rules <- list(
+    'description' = function(x) !is.na(x) & x != "" & grepl('^[A-Za-z]', x),
+    'date' = function(x) as.Date(x) <= Sys.Date(),
+    'values' = function(x) x >= 0
+)
+
+# Add the `df2Rules` list as a ruleset named "df2Rules" to `projectValidationRules`
+
+projectValidationRules <- projectValidationRules %>% 
+    addRules(., df2Rules, 'df2Rules')
+projectValidationRules
+
+
+```
+
+### Apply validation rules to the data
+
+Let's use `validateDF()` to summarize percent of values in each column passing validation.
+
+```{r validateDF}
+# Validate df1 - returns percent valid
+
+scoreDF1 <- validateDF(df1, projectValidationRules, 'df1Rules')
+scoreDF1
+
+# Validate df2 - returns percent valid
+
+scoreDF2 <- validateDF(df2, projectValidationRules, 'df2Rules')
+scoreDF2
+```
+
+
+### Summarize validity and completeness
+
+Let's use `makeValidData()` to evaluate percent completeness and validity for a specific group.
+
+```{r mvd1}
+# Evaluate percent completeness (not empty) and validity (passes column rule) 
+# by a grouping column (e.g., state) and filter value (e.g., TX)
+
+makeValidData(df1, 
+    indexCol = 'state', 
+    filtRep = 'TX', 
+    rulesObj = projectValidationRules, 
+    ruleset = 'df1Rules'
+)
+
+makeValidData(df2, 
+    indexCol = 'reporter', 
+    filtRep = 'Rep A', 
+    rulesObj = projectValidationRules, 
+    ruleset = 'df2Rules'
+)
+
+```
+
+Let's use `makeValidData()` and `purrr::map_df()` to summarize percent completeness and validity for all groups.
+
+```{r purrr}
+# Use `purrr::map_df()` to summarize by the groups
+
+states <- sort(unique(df1$state))
+purrr::map_df(states, ~ 
+    makeValidData(df1, 
+        indexCol = 'state', 
+        filtRep = .x, 
+        rulesObj = projectValidationRules, 
+        ruleset = 'df1Rules'
+    )           
+)
+
+reps <- sort(unique(df2$reporter))
+purrr::map_df(reps, ~ 
+    makeValidData(df2, 
+        indexCol = 'reporter', 
+        filtRep = .x, 
+        rulesObj = projectValidationRules, 
+        ruleset = 'df2Rules'
+    )           
+)
+```
+
+
