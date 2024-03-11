@@ -3,7 +3,7 @@ pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   edxtras: edxtras.html
-last_built: 2024-03-06T16:57Z
+last_built: 2024-03-11T17:03Z
 urls:
   reference: https://peernisse.github.io/edxtras/reference
   article: https://peernisse.github.io/edxtras/articles
