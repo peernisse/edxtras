@@ -1,7 +1,7 @@
 Type: Package
 Package: edxtras
 Title: Validation Functions for EDX Datasets
-Version: 1.1.0
+Version: 1.1.0.9000
 Authors@R: 
     person("Peter", "EerNisse", , "peernisse@utah.gov", role = c("aut", "cre"))
 Maintainer: The package maintainer <peernisse@utah.gov>
@@ -20,7 +20,7 @@ Imports:
     lubridate,
     magrittr,
     purrr,
-    shiny,
+    stats,
     tidyr
 Suggests: 
     knitr,

@@ -11,7 +11,6 @@
 #' @importFrom purrr map
 #' @importFrom tidyr nest unnest
 #' @importFrom dplyr select filter %>% mutate rename bind_rows arrange
-#' @importFrom shiny validate
 #' @returns Tibble with same columns as input DF, plus column "metric", and 2
 #' rows: Completeness percentage and validity percentage
 #' @examples
@@ -29,8 +28,8 @@ makeValidData <- function(df, indexCol = 'reporter', filtRep,
 
     if(!nrow(df) > 0) stop(paste('DF dim is:', dim(df), 'No data to process.'))
     if(!indexCol %in% names(df)) stop('Index column is not present in the dataframe.')
-    if(!length(filtRep) > 0) validate('No input values are present to filter on.')
-    if(sum(filtRep %in% df[[indexCol]]) == 0) validate('Input values not present in indexCol')
+    if(!length(filtRep) > 0) stop('No input values are present to filter on.')
+    if(sum(filtRep %in% df[[indexCol]]) == 0) stop('filtRep not present in indexCol')
     if(sum(is.na(filtRep)) > 0) warning('Filter values in filtRep contain NA')
     if(sum(!is.na(df[[indexCol]])) == 0) warning('indexCol is all NA. Output will be returned but group is NA')
 

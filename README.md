@@ -7,7 +7,7 @@
 [![Pkg-Version](https://badgen.net/static/Pkg-Version/1.1.0/blue?icon=[gitlab])]()
 [![R-Version](https://badgen.net/static/R-Version/>=3.5/blue?icon=[gitlab])]()
 [![R-CMD-Check](https://badgen.net/static/R-CMD-Check/Passing/green?icon=[gitlab])]()
-[![coverage](https://badgen.net/static/Test-Coverage/60-percent/yellow)]()
+[![coverage](https://badgen.net/static/Test-Coverage/81-percent/green)]()
 
 <!-- badges: end -->
 
@@ -28,6 +28,8 @@ remotes::install_github("peernisse/edxtras")
 The `edxtras` package has been developed at the Utah Department of Health and Human Services (DHHS), Division of Population Health Informatics Program (DPHIP). Functions in the package are developed to aid in ongoing validation of laboratory and health clinic data reported to assess reporter compliance with public health reporting regulations, namely, Utah Admin. Code R386-702, the Communicable Disease Rule.
 
 ## Contribution
+
+- Browse the source code at [this link](https://github.com/peernisse/edxtras)
 - You can report a bug or issues at [this link](https://github.com/peernisse/edxtras/issues/new)
 - You can submit a pull request at [this link](https://github.com/peernisse/edxtras/compare)
 
