@@ -20,7 +20,7 @@ Imports:
     lubridate,
     magrittr,
     purrr,
-    shiny,
+    stats,
     tidyr
 Suggests: 
     knitr,

@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 ## Get Started
 
-
+[Browse `edxtras` source code](https://github.com/peernisse/edxtras)
 
 ```{r setup}
 library(edxtras)
