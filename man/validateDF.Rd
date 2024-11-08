@@ -34,6 +34,7 @@ Other validation:
 \code{\link{editRules}()},
 \code{\link{makeValidData}()},
 \code{\link{validRules}()},
-\code{\link{validateColumn}()}
+\code{\link{validateColumn}()},
+\code{\link{validateRows}()}
 }
 \concept{validation}

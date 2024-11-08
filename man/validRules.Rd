@@ -65,6 +65,7 @@ Other validation:
 \code{\link{editRules}()},
 \code{\link{makeValidData}()},
 \code{\link{validateColumn}()},
-\code{\link{validateDF}()}
+\code{\link{validateDF}()},
+\code{\link{validateRows}()}
 }
 \concept{validation}

@@ -1,5 +1,8 @@
 url: https://peernisse.github.io/edxtras/
 template:
-  bootstrap: 5
-  bootswatch: flatly
+  #bootstrap: 5
+  #bootswatch: flatly
+  light-switch: true
+  theme: gruvbox-light
+  theme-dark: gruvbox-dark
 
