@@ -4,7 +4,7 @@
 <!-- badges: start -->
 
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![Pkg-Version](https://badgen.net/static/Pkg-Version/1.1.0/blue?icon=[gitlab])]()
+[![Pkg-Version](https://badgen.net/static/Pkg-Version/1.2.0/blue?icon=[gitlab])]()
 [![R-Version](https://badgen.net/static/R-Version/>=3.5/blue?icon=[gitlab])]()
 [![R-CMD-Check](https://badgen.net/static/R-CMD-Check/Passing/green?icon=[gitlab])]()
 [![coverage](https://badgen.net/static/Test-Coverage/81-percent/green)]()
