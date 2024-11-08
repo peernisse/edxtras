@@ -47,6 +47,7 @@ Other validation:
 \code{\link{editRules}()},
 \code{\link{validRules}()},
 \code{\link{validateColumn}()},
-\code{\link{validateDF}()}
+\code{\link{validateDF}()},
+\code{\link{validateRows}()}
 }
 \concept{validation}
