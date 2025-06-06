@@ -1,5 +1,5 @@
 
-# edxtras
+# edxtras <a href="https://peernisse.github.io/edxtras/"><img src="man/figures/logo.png" align="right" height="138" alt="edxtras website" /></a>
 
 <!-- badges: start -->
 
